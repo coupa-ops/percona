@@ -73,7 +73,7 @@ end
 
 # install db to the data directory
 execute "setup mysql datadir" do
-  command "mysql_install_db --user=#{user} --datadir=#{datadir}"
+  command "mysqld --user=#{user} --datadir=#{datadir}"
   not_if "test -f #{datadir}/mysql/user.frm"
 end
 
