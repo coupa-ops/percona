@@ -21,7 +21,7 @@ describe "percona::access_grants" do
 
   it "adds the root password to `grants.sql`" do
     expect(chef_run).to render_file(grant_file).with_content(
-      "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('s3kr1t')"
+      "ALTER USER 'root'@'localhost' IDENTIFIED BY 's3kr1t'"
     )
   end
 
