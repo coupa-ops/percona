@@ -72,10 +72,10 @@ service "mysql" do
 end
 
 # install db to the data directory
-execute "setup mysql datadir" do
-  command "mysqld --user=#{user} --datadir=#{datadir}"
-  not_if "test -f #{datadir}/mysql/user.frm"
-end
+# execute "setup mysql datadir" do
+#   command "mysqld --user=#{user} --datadir=#{datadir}"
+#   not_if "test -f #{datadir}/mysql/user.frm"
+# end
 
 # setup the main server config file
 template percona["main_config_file"] do
