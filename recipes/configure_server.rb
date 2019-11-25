@@ -73,7 +73,7 @@ end
 
 # install db to the data directory
 execute "setup mysql datadir" do
-  command "mysqld --user=#{user} --datadir=#{datadir} --initialize"
+  command "mysqld --user=#{user} --datadir=#{datadir} --initialize-insecure"
   not_if "test -f #{datadir}/mysql.ibd"
 end
 
