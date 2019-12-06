@@ -124,8 +124,8 @@ end
 
 # install db to the data directory
 execute 'setup mysql datadir' do
-  command "mysql_install_db --defaults-file=#{percona['main_config_file']} --user=#{user}"
-  not_if "test -f #{datadir}/mysql/user.frm"
+  command "mysqld --defaults-file=#{percona['main_config_file']} --user=#{user}"
+  not_if "test -f #{datadir}/mysql.ibd"
   action :nothing
 end
 
@@ -168,8 +168,8 @@ unless node['percona']['skip_passwords']
   root_pw = passwords.root_password
 
   execute 'Update MySQL root password' do # ~FC009 - `sensitive`
-    command "mysqladmin --user=root --password='' password '#{root_pw}'"
-    only_if "mysqladmin --user=root --password='' version"
+    command "mysqladmin --user=root password '#{root_pw}'"
+    only_if 'mysqladmin --user=root version'
     sensitive true
   end
 end

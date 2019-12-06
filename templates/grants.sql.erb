@@ -6,7 +6,7 @@
   <% [['SELECT', 'mysql.user'], ['SHUTDOWN', '*.*']].each do |priv, loc| %>
 <%= "GRANT #{priv} ON #{loc} TO '#{@debian_user}'@'localhost';" %>
   <% end -%>
-SET PASSWORD FOR '<%= @debian_user %>'@'localhost' = PASSWORD('<%= @debian_password %>');
+ALTER USER '<%= @debian_user %>'@'localhost' = IDENTIFIED BY '<%= @debian_password %>';
 <% end -%>
 
 
@@ -19,7 +19,7 @@ GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '<%= node["percona"]["ba
 <% end -%>
 
 # Set the server root password. This should be preseeded by the package installation.
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('<%= @root_password %>');
+ALTER USER 'root'@'localhost' = IDENTIFIED BY '<%= @root_password %>';
 
 
 FLUSH PRIVILEGES;
